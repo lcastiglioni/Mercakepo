@@ -1,24 +1,47 @@
-
-
-function creador_productos(producto, precio, stock) {
-//crea un producto en base a los datos que se piden por popup
-if (stock >= 1){
-//el bucle while lo aplique porque no me convencia con el bucle for
-        while( stock >= 1){
-            console.log("se creo el producto:" + producto +", Precio $"+ precio +", Stock "+ stock)
-            break
-        }
-    }
-//si no tiene stock devuelve que no hay stock
-else {
-            console.log("no hay stock disponible en el sistema")
-        }
+class Producto{
+    constructor( nombre , precio , stock){
+        this.nombre = nombre;
+        this.precio = precio;
+        this.stock = stock;
     }
 
-//Separe los datos que pide el usuario por sus respectivas variables aplicandoles un parseInt a los datos que manejan enteros
-let Producto = prompt("como se llama el producto");
-let Precio = parseInt(prompt("cual es su precio"));
-let Stock = parseInt(prompt("cual es su stock"));
+    get_datos(){
+        console.log("------------");
+        console.log("Nombre: ", this.nombre);
+        console.log("Precio: ", this.precio);
+        console.log("Stock: ", this.stock);
+        console.log("");
+    }
+}
+    let elegir = prompt("Ingresa 1 podra crear un producto, y 2 para la compra");
+    let lista_productos =[];
+    const creador = function() {
 
-//Y por ultimo hice el llamado a la funcion aplicandole las variables dentro para que quede mas ordenado 
-creador_productos(Producto,Precio,Stock);
+//crea hasta 3 productos en base a los datos que se piden por varios popup
+    if (elegir == 1){
+//aplique el bucle for en reemplazo del bucle while porque el while me generaba errores
+        for( let i = 0; i <3; i = i + 1){
+            let nombre = prompt("como se llama el producto");
+            let precio = parseInt(prompt("cual es su precio"));
+            let stock = parseInt(prompt("cual es su stock"));
+            
+            let productos = new Producto(nombre, precio, stock);
+            
+            lista_productos.push(productos);
+            
+        }
+        console.log(lista_productos);
+    }
+//si elijo la 2da opcion nos mandaria a una pagina que no existe por el momento
+    else if(elegir == 2){
+        console.log("pagina en mantenimiento")
+    }
+
+}
+//Y por ultimo hice el llamado a la funcion anonima para poder ejecutar el if, ya que no encontraba la manera de poder ejecutarla sin parametros 
+creador();
+// INICIO DEL RENDER DE MIS PRODUCTOS
+console.log("lista de productos");
+    for( let producto of lista_productos){
+        producto.get_datos();
+    }
