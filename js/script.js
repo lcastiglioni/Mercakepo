@@ -12,6 +12,14 @@ class Producto{
         console.log("Stock: ", this.stock);
         console.log("");
     }
+    get_stock(){
+        if(this.stock <= 0){
+            return false
+        }
+        else{
+            return true
+        }
+    }
 }
     let elegir = prompt("Ingresa 1 podra crear un producto, y 2 para la compra");
     let lista_productos =[];
@@ -45,3 +53,24 @@ console.log("lista de productos");
     for( let producto of lista_productos){
         producto.get_datos();
     }
+
+    function busqueda_producto(producto){
+        return producto.nombre == compra_user
+    }
+
+
+let compra_user = prompt("Ingrese el nombre del producto para su compra");
+
+let resultado_producto = lista_productos.find( busqueda_producto );
+
+if (resultado_producto != undefined){
+    if( resultado_producto.get_stock()){
+        console.log("Su producto esta disponible: ", resultado_producto.nombre);
+    }
+    else{
+        console.log("No hay stock disponible de ", resultado_producto.nombre)
+    }
+}
+else{
+    console.log("No se encontro el producto: compra_user")
+}
