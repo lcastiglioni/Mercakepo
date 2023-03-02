@@ -20,7 +20,16 @@ class Producto{
             return true
         }
     }
+    venta_stock(cantidad_unidades){
+        if(this.stock >= cantidad_unidades){
+            this.stock = this.stock - cantidad_unidades;
+        }
+        else{
+            return false
+        }
+    }
 }
+    
     let elegir = prompt("Ingresa 1 podra crear un producto, y 2 para la compra");
     let lista_productos =[];
     const creador = function() {
@@ -62,15 +71,23 @@ console.log("lista de productos");
 let compra_user = prompt("Ingrese el nombre del producto para su compra");
 
 let resultado_producto = lista_productos.find( busqueda_producto );
-
+// condicional para el stock disponible
 if (resultado_producto != undefined){
+    
     if( resultado_producto.get_stock()){
-        console.log("Su producto esta disponible: ", resultado_producto.nombre);
+        let cantidad_unidades = prompt("Cuantas unidades queres?: ");
+        if (resultado_producto.venta_stock( cantidad_unidades)){
+            console.log(`Se realizo la compra de: ${resultado_producto.nombre} la cantidad de unidades compradas: ${cantidad_unidades}`);
+        }
+        else{
+            console.log(`No se pudo realizar la compra, porque el stock disponible es de: ${resultado_producto.stock}`)
+        }
+        
     }
     else{
         console.log("No hay stock disponible de ", resultado_producto.nombre)
     }
 }
 else{
-    console.log("No se encontro el producto: compra_user")
+    console.log("No se encontro el producto: ", compra_user);
 }
